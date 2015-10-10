@@ -1,0 +1,55 @@
+<html>
+  <head>
+ <!--Load the AJAX API. Do this only once per web page! -->
+
+
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+      
+
+  <script type="text/javascript">
+
+google.load('visualization', '1', {'packages':['corechart','table']});
+google.setOnLoadCallback(drawBasic);
+
+function drawBasic() 
+{
+ 
+    var queryString = encodeURIComponent('SELECT A,B LIMIT 5 OFFSET 8');
+	//prova mmb
+    //var docUrl='https://docs.google.com/spreadsheets/d/1-IRbcZeStx85cENOFuSYxE5YWQM-MUZwcyQZY0uNp5M';
+    
+    //energia  e fotovoltaico
+    
+    var docUrl= 'https://docs.google.com/spreadsheets/d/1daBRSpLoZPV1vU8YHws7rqDm_tsFwoa0Uz_B7KSrC3c';
+    var queryUrl= docUrl + '/gviz/tq?sheet=DATI&headers=1&tq=' + queryString;
+    var query = new google.visualization.Query(queryUrl);
+    query.send(handleSampleDataQueryResponse);
+
+}
+
+function handleSampleDataQueryResponse(response) {
+      if (response.isError()) {
+        alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+        return;
+      }
+
+      var data = response.getDataTable();
+      //var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+      
+      var chart = new google.visualization.Table(document.getElementById('chart_div'));
+      chart.draw (data , {showRowNumber: true, width: '100%', height: '100%'} );
+      //chart.draw(data, { height: 400 });
+    }
+
+</script>
+
+
+
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div" style="width:400; height:300"></div>
+  </body>
+</html>
