@@ -1,0 +1,2 @@
+# casetta_energia
+#
